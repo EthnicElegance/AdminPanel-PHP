@@ -84,11 +84,6 @@ require_once("header.php");
                             <a class="ibox-collapse"><i class="fa fa-minus"></i></a>
                         </div>
             </div>
-            
-            <!-- <div class="page-content fade-in-up">
-                <div class="row">
-                <div class="col-md-6">
-                        <div class="ibox"> -->
             <div class="ibox-body">
                 <form class="form-horizontal" method="post" enctype="multipart/form-data">
                     <div class="form-group row">
@@ -109,12 +104,31 @@ require_once("header.php");
                                             <textarea cols="20" rows="10" class="form-control" name="cdes" id="cdes"><?php echo trim($record['description']) ?></textarea>        
                                         </div>
                     </div>
+                    <script type="text/javascript">
+                        function previewImage(event) {
+                            var input = event.target;
+                            var image = document.getElementById('preview');
+                            if (input.files && input.files[0]) {
+                                var reader = new FileReader();
+                                reader.onload = function(e) {
+                                image.src = e.target.result;
+                                }
+                                reader.readAsDataURL(input.files[0]);
+                            }
+                        }
+                    </script>
+                    <style>
+                        #preview {
+                            width: 100px;
+                            height: 100px;
+                        }
+                    </style>
                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">File To Upload</label>
                                         <div class="col-sm-10">
-                                            <input class="form-control" type="file"  name="f1" id="f1">
+                                            <input class="form-control" type="file" onchange="previewImage(event)" name="f1" id="f1">
 
-                                            <img src='<?php echo $path;?>' width=100px height=100px /></td>
+                                            <img src='<?php echo $path;?>' id="preview" alt="Preview Image" width=100px height=100px /></td>
                                          </div>
                     </div>  
                     <div class="form-group row">
