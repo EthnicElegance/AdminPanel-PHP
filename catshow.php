@@ -25,8 +25,6 @@
 
     include_once("header.php");
 ?>
-
-
             <!-- START PAGE CONTENT-->
             <div class="page-heading">
                 <h1 class="page-title">DataTables</h1>
@@ -41,29 +39,23 @@
                 <div class="ibox">
                     <div class="ibox-head">
                         <div class="ibox-title">Category</div>
-                        <a class="btn btn-info" href="catadd.php">
-  <i class="fa fa-plus fa-lg"></i> Add</a>
-
-                        <!-- <a class="add" href="catadd.php" style="color:#243c64;"><i class="fa fa-plus" style="color:#243c64;"></i>Add</a>
-             -->
+                        <a class="btn btn-info" href="catadd.php"><i class="fa fa-plus fa-lg"></i> Add</a>
                     </div>
                     <div class="ibox-body">
                         <table class="table table-striped table-bordered table-hover" id="example-table" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
                                 <th>CATAGORY NAME</th>
-                                    <th>TYPE</th>
-                                    <th>DESCRIPTION</th>
-                                    <th>Photo</th>
+                                    <th>GENDER</th>
+                                    <th>PHOTOS</th>
                                     <th>OPERATIONS</th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
                                 <th>CATAGORY NAME</th>
-                                    <th>TYPE</th>
-                                    <th>DESCRIPTION</th>
-                                    <th>Photo</th>
+                                    <th>GENDER</th>
+                                    <th>PHOTOS</th>
                                     <th>OPERATIONS</th>
                                 </tr>
                             </tfoot>
@@ -76,8 +68,7 @@
                                 ?>
                                     <tr>
                                         <td><?=$row['name'];?></td>
-                                        <td><?=$row['type'];?></td>
-                                        <td><?=$row['description'];?></td>
+                                        <td><?=$row['gender'];?></td>
                                         <td><img src='<?php echo $path;?>' width=100px height=100px /></td>
                                         <td>
                                         <a class="edit" href="edit.php?id=<?php echo $key?>" ><i class="fa fa-pencil" style="color:#243c64;"></i></a>
@@ -87,7 +78,6 @@
                                     <?php
                                     }
                                     ?>
-                        
                             </tbody>
                         </table>
                     </div>

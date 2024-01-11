@@ -206,7 +206,7 @@
                     </li>
                     <!-- <li class="heading">FEATURES</li> -->
                     <li>
-                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-bookmark"></i>
+                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-bars"></i>
                             <span class="nav-label">Category</span><i class="fa fa-angle-left arrow"></i></a>
                         <ul class="nav-2-level collapse">
                             <li>
@@ -215,31 +215,10 @@
                             <li>
                                 <a href="catshow.php">View</a>
                             </li>
-                            <!-- <li>
-                                <a href="panels.html">Panels</a>
-                            </li>
-                            <li>
-                                <a href="buttons.html">Buttons</a>
-                            </li>
-                            <li>
-                                <a href="tabs.html">Tabs</a>
-                            </li>
-                            <li>
-                                <a href="alerts_tooltips.html">Alerts &amp; Tooltips</a>
-                            </li>
-                            <li>
-                                <a href="badges_progress.html">Badges &amp; Progress</a>
-                            </li>
-                            <li>
-                                <a href="lists.html">List</a>
-                            </li>
-                            <li>
-                                <a href="cards.html">Card</a>
-                            </li> -->
                         </ul>
                     </li>
                     <li>
-                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-edit"></i>
+                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-clone"></i>
                             <span class="nav-label">Sub Category</span><i class="fa fa-angle-left arrow"></i></a>
                         <ul class="nav-2-level collapse">
                             <li>
@@ -248,15 +227,18 @@
                             <li>
                                 <a href="subshow.php">View</a>
                             </li>
-                            <!-- <li>
-                                <a href="form_masks.html">Form input masks</a>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-archive"></i>
+                            <span class="nav-label">Product</span><i class="fa fa-angle-left arrow"></i></a>
+                        <ul class="nav-2-level collapse">
+                            <li>
+                                <a href="Productadd.php">Add</a>
                             </li>
                             <li>
-                                <a href="form_validation.html">Form Validation</a>
+                                <a href="Productshow.php">View</a>
                             </li>
-                            <li>
-                                <a href="text_editors.html">Text Editors</a>
-                            </li> -->
                         </ul>
                     </li>
                     <!-- <li>

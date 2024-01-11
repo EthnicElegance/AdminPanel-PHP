@@ -26,9 +26,8 @@ if (isset($_REQUEST['id']))
 if (isset($_POST['edit']))
 {
    
-    $cname=$_POST['cname'];
-    $ctype=$_POST['ctype'];
-    $cdes=$_POST['cdes'];
+    $cname=$_POST['name'];
+    $gen=$_POST['gen'];
     $photo=$_FILES['f1']['name'];
 
     if ($_FILES['f1']['name'] != "") {
@@ -40,8 +39,7 @@ if (isset($_POST['edit']))
         $database->getReference($url)->update(
             [
                 'name' => $cname,
-                'type' =>  $ctype,
-                'description' =>  $cdes,
+                'gender' =>  $gen,
                 'photo' => $photo,
             ]
         );
@@ -59,8 +57,7 @@ if (isset($_POST['edit']))
         $database->getReference($url)->update(
             [
                 'name' => $cname,
-                'type' =>  $ctype,
-                'description' =>  $cdes,
+                'gender' =>  $gen,
                 'photo' => $file1
             ]
         );
@@ -75,75 +72,69 @@ if (isset($_POST['edit']))
 require_once("header.php");
 ?>
 
-<br/>        
-
-<div class="ibox">            
-            <div class="ibox-head">
+<br>
+        <div class="page-content fade-in-up">
+                <div class="ibox">
+                    <div class="ibox-head">
                         <div class="ibox-title">Edit Category</div>
                         <div class="ibox-tools">
                             <a class="ibox-collapse"><i class="fa fa-minus"></i></a>
                         </div>
-            </div>
-            <div class="ibox-body">
-                <form class="form-horizontal" method="post" enctype="multipart/form-data">
-                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Category Name</label>
-                                        <div class="col-sm-10">
-                                            <input class="form-control" type="text" name="cname" id="cname" placeholder="Enter Category Name" value="<?php echo trim($record['name']) ?>">
-                                        </div>
                     </div>
-                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Type</label>
-                                        <div class="col-sm-10">
-                                            <input class="form-control" type="text" name="ctype" id="ctype" placeholder="Enter Type" value="<?php echo trim($record['type']) ?>">
-                                        </div>
-                    </div>
-                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">Description</label>
-                                        <div class="col-sm-10">
-                                            <textarea cols="20" rows="10" class="form-control" name="cdes" id="cdes"><?php echo trim($record['description']) ?></textarea>        
-                                        </div>
-                    </div>
-                    <script type="text/javascript">
-                        function previewImage(event) {
-                            var input = event.target;
-                            var image = document.getElementById('preview');
-                            if (input.files && input.files[0]) {
-                                var reader = new FileReader();
-                                reader.onload = function(e) {
-                                image.src = e.target.result;
+                    <div class="ibox-body">
+                        <form class="form-horizontal" enctype="multipart/form-data" id="form-sample-1" method="post" >
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Category Name</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" type="text" name="name" id="name" placeholder="Enter Type" value="<?php echo trim($record['name']) ?>">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="col-sm-2">Gender</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <div class="form-check">
+                                    <input class="col-sm-3 from-check-input" type="radio" name="gen" id="Men" value="Men" <?php if ($record['gender']=="Men") { ?>checked<?php } ?>>
+                                    <label for="Male" class="">Men</label>
+                                </div>&nbsp;&nbsp;&nbsp;
+                                <div class="form-check">
+                                    <input class="col-sm-2 from-check-input" type="radio" name="gen" id="Women" value="Women" <?php if ($record['gender']=="Women") { ?>checked<?php } ?>>
+                                    <label for="Female" class="">Women</label>
+                                </div>
+                            </div>
+                            <script type="text/javascript">
+                                function previewImage(event) {
+                                    var input = event.target;
+                                    var image = document.getElementById('preview');
+                                    if (input.files && input.files[0]) {
+                                        var reader = new FileReader();
+                                        reader.onload = function(e) {
+                                        image.src = e.target.result;
+                                        }
+                                        reader.readAsDataURL(input.files[0]);
+                                    }
                                 }
-                                reader.readAsDataURL(input.files[0]);
-                            }
-                        }
-                    </script>
-                    <style>
-                        #preview {
-                            width: 100px;
-                            height: 100px;
-                        }
-                    </style>
-                    <div class="form-group row">
-                                        <label class="col-sm-2 col-form-label">File To Upload</label>
-                                        <div class="col-sm-10">
-                                            <input class="form-control" type="file" onchange="previewImage(event)" name="f1" id="f1">
-
-                                            <img src='<?php echo $path;?>' id="preview" alt="Preview Image" width=100px height=100px /></td>
-                                         </div>
-                    </div>  
-                    <div class="form-group row">
-                                        <div class="col-sm-10 ml-sm-auto mt-5">
-                                            <input class="btn btn-info" type="submit" name="edit" value="Edit">
-                                        </div>
-                    </div>
-                </form>
-            </div>
-                        <!-- </div>
+                            </script>
+                            <style>
+                                #preview {
+                                    width: 200px;
+                                    height: 140px;
+                                }
+                            </style>
+                            <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label">File To Upload</label>
+                                                <div class="col-sm-10">
+                                                    <input class="form-control" type="file" onchange="previewImage(event)" name="f1" id="f1">
+                                                    <img id="preview" src="<?php echo $path ?>">
+                                                </div>
+                            </div>                
+                            <div class="form-group row">
+                                <div class="col-sm-10 ml-sm-auto mt-5">
+                                    <input class="btn btn-info" type="submit" name="edit" value="submit">
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
-            </div>
-        </div> -->
-</div>
+        </div>
 <?php
     include_once("footer.php");
 ?>
