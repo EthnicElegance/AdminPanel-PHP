@@ -1,41 +1,41 @@
 <?php
     require_once("config.php");
 
-    require __DIR__.'/vendor/autoload.php';
+    // require __DIR__.'/vendor/autoload.php';
 
-    use Kreait\Firebase\Factory;
+    // use Kreait\Firebase\Factory;
 
-    $storage = (new Factory())
-    ->withServiceAccount('jsonkeys/ethincelegance-firebase-adminsdk-jfli6-ab8269909a.json')
-    ->withDefaultStorageBucket('ethincelegance.appspot.com')
-    ->createStorage();
+    // $storage = (new Factory())
+    // ->withServiceAccount('jsonkeys/ethincelegance-firebase-adminsdk-jfli6-ab8269909a.json')
+    // ->withDefaultStorageBucket('ethincelegance.appspot.com')
+    // ->createStorage();
 
-    $bucket = $storage->getBucket();
-    if(isset($_REQUEST['btnsub']))
-    {
-      $name=$_REQUEST['name'];
-      $gen = $_REQUEST['gen'];
-      $photo=$_FILES['f1']['name'];
+    // $bucket = $storage->getBucket();
+    // if(isset($_REQUEST['btnsub']))
+    // {
+    //   $name=$_REQUEST['name'];
+    //   $gen = $_REQUEST['gen'];
+    //   $photo=$_FILES['f1']['name'];
 
-      if($_FILES['f1']['name']){
-        $bucket->upload(
-            file_get_contents($_FILES['f1']['tmp_name']),
-            [
-            'name' =>$_FILES['f1']['name']
-            ]
-        );
+    //   if($_FILES['f1']['name']){
+    //     $bucket->upload(
+    //         file_get_contents($_FILES['f1']['tmp_name']),
+    //         [
+    //         'name' =>$_FILES['f1']['name']
+    //         ]
+    //     );
       
-      }
+    //   }
 
-      $new = $database
-      ->getReference('Project/category')
-      ->push([
-          'name' => $name,
-          'gender' => $gen,
-          'photo' =>$photo,
-      ])->getKey();
-      header("location:catshow.php");
-    }
+    //   $new = $database
+    //   ->getReference('Project/category')
+    //   ->push([
+    //       'name' => $name,
+    //       'gender' => $gen,
+    //       'photo' =>$photo,
+    //   ])->getKey();
+    //   header("location:catshow.php");
+    // }
 
     include_once("header.php");
 ?>
@@ -65,11 +65,15 @@
                                     <input class="form-control" type="text" name="detail" id="detail" placeholder="Enter Product Details">
                                 </div>
                             </div>
-
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">User_Type</label>
-                                <div class="col-sm-10">
-                                    <input class="form-control" type="text" name="utype" id="utype" placeholder="Enter User Type Type">
+                                <label class="col-sm-2">User Type</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <div class="form-check">
+                                    <input class="form-control" type="checkbox" name="retailer" id="retailer" name="ut[]">
+                                    <label for="Retailer" class="">Retailer</label>
+                                </div>&nbsp;&nbsp;&nbsp;
+                                <div class="form-check">
+                                    <input class="form-control" type="checkbox" name="cus" id="cus" name="ut[]">
+                                    <label for="Customer" class="">Customer</label>
                                 </div>
                             </div>
 
@@ -90,28 +94,62 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Availibility</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" type="text" name="av" id="av" placeholder="Enter Availibility">
+                                    <select name="ava">
+                                        <option>Select</option>
+                                        <option>Available</option>
+                                        <option>Unavailable</option>
+                                        <option>Coming Soon</option>
+                                    </select>    
                                 </div>
+                            </div>
+<!-- 
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">Size</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" type="text" name="size" id="size" placeholder="Enter Size">
+                                </div>
+                            </div> -->
+                            <div class="form-group row">
+                                <label class="col-sm-2">Size</label>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <div class="form-check">
+                                    <input class="form-control" type="checkbox" id="S" name="size[]" value="S">
+                                    <label for="S" class="">S</label>
+                                </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <div class="form-check">
+                                    <input class="form-control" type="checkbox" id="M" name="size[]" value="M">
+                                    <label for="M" class="">M</label>
+                                </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <div class="form-check">
+                                    <input class="form-control" type="checkbox" id="L" name="size[]" value="L">
+                                    <label for="L" class="">L</label>
+                                </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <div class="form-check">
+                                    <input class="form-control" type="checkbox" id="XL" name="size[]" value="XL">
+                                    <label for="XL" class="">XL</label>
+                                </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <div class="form-check">
+                                    <input class="form-control" type="checkbox" id="XXL" name="size[]" value="XXL">
+                                    <label for="XXL" class="">XXL</label>
+                                </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <div class="form-check">
+                                    <input class="form-control" type="checkbox" id="XXXL" name="size[]" value="XXXL">
+                                    <label for="XXXL" class="">XXXL</label>
+                                </div>&nbsp;&nbsp;&nbsp;
+                                <div class="form-check">
+                                    <input class="form-control" type="checkbox" id="Free Size" name="size[]" value="Free">
+                                    <label for="Free Size" class="">Free Size</label>
+                                </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <div class="form-check">
+                                    <input class="form-control" type="text" name="size[]" id="size" placeholder="Enter Size">
+                                </div>&nbsp;&nbsp;&nbsp;
+                                
+                                <!-- <a class="delete" href="Productadd.php" onclick="return confirm('are you sure<?= $size ?>');"><i class="fa fa-trash" style="color:#243c64;"></i></a>   -->
                             </div>
 
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">QTY</label>
                                 <div class="col-sm-10">
                                     <input class="form-control" type="text" name="qty" id="qty" placeholder="Enter QTY">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Status</label>
-                                <div class="col-sm-10">
-                                    <input class="form-control" type="text" name="status" id="status" placeholder="Enter Status of Product">
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Size</label>
-                                <div class="col-sm-10">
-                                    <input class="form-control" type="text" name="size" id="size" placeholder="Enter Size">
                                 </div>
                             </div>
 
@@ -128,16 +166,28 @@
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Type</label>
+                                <label class="col-sm-2 col-form-label">Product Type</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" type="text" name="type" id="type" placeholder="Enter Product Type">
+                                    <select name="ptype">
+                                        <option>Select Type</option>
+                                        <option>Kurti</option>
+                                        <option>Lehenga</option>
+                                        <option>Saree</option>
+                                        <option>Gown</option>
+                                    </select>    
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Fabric</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" type="text" name="fabric" id="fabric" placeholder="Enter Product Fabric">
+                                    <select name="ava">
+                                        <option>Select Fabric</option>
+                                        <option>Silk</option>
+                                        <option>Cotton</option>
+                                        <option>Rayon</option>
+                                        <option>Georgette</option>
+                                    </select>    
                                 </div>
                             </div>
 
@@ -170,7 +220,7 @@
                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label">File To Upload</label>
                                                 <div class="col-sm-10">
-                                                    <input class="form-control" type="file" required onchange="previewImage(event)" name="f1" id="f1">
+                                                    <input class="form-control" type="file" onchange="previewImage(event)" name="f1" id="f1">
                                                     <img id="preview" src="Images\NoImage.jpg">
                                                 </div>
                             </div>                

@@ -25,35 +25,38 @@
             <div class="page-content fade-in-up">
                 <div class="ibox">
                     <div class="ibox-head">
-                        <div class="ibox-title">Product</div>
+                        <div class="ibox-title">Sub Categoryt</div>
                         <a class="btn btn-info" href="subadd.php"><i class="fa fa-plus fa-lg"></i> Add</a>
                     </div>
                     <div class="ibox-body">
                         <table class="table table-striped table-bordered table-hover" id="example-table" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
-                                <th>PRODUCT NAME</th>
-                                    <th>PRICE</th>
+                                <th>SUB CATEGORY NAME</th>
+                                    <th>PHOTO</th>
                                     <th>OPERATIONS</th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
-                                <th>PRODUCT NAME</th>
-                                    <th>PRICE</th>
+                                <th>SUB CATEGORY NAME</th>
+                                    <th>PHOTO</th>
                                     <th>OPERATIONS</th>
                                 </tr>
                             </tfoot>
                             <tbody>
                                 <?php
                                     foreach($datalist as $key=>$row){
+                                        $file1=$row['photo'];
+                                        $path="https://firebasestorage.googleapis.com/v0/b/ethincelegance.appspot.com/o/$file1?alt=media";
+                                
                                 ?>
                                     <tr>
-                                        <td><?=$row['pname'];?></td>
-                                        <td><?=$row['price'];?></td>
+                                        <td><?= $row['subcat']; ?></td>
+                                        <td><img src='<?php echo $path;?>' width=100px height=100px /></td>
                                         <td>
                                         <a class="edit" href="subedit.php?id=<?php echo $key?>" ><i class="fa fa-pencil fa-fw" style="color:#243c64;"></i></a>
-                                        <a class="delete" href="subshow.php?id=<?php echo $key?>" onclick="return confirm('Are you sure you want to delete <?=$row['pname'];?>');"><i class="fa fa-trash" style="color:#243c64;"></i></a>  
+                                        <a class="delete" href="subshow.php?id=<?php echo $key?>" onclick="return confirm('Are you sure you want to delete <?=$row['subcat'];?>');"><i class="fa fa-trash" style="color:#243c64;"></i></a>  
                                         </td>
                                     </tr>
                                     <?php

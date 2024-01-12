@@ -1,9 +1,42 @@
 <?php
+    include_once("config.php");
+
+    require __DIR__.'/vendor/autoload.php';
+
+    use Kreait\Firebase\Factory;
+
+    $storage = (new Factory())
+    ->withServiceAccount('jsonkeys/ethincelegance-firebase-adminsdk-jfli6-ab8269909a.json')
+    ->withDefaultStorageBucket('ethincelegance.appspot.com')
+    ->createStorage();
+
+    $bucket = $storage->getBucket();
+    if(isset($_REQUEST['btnsub']))
+    {
+      $scname=$_REQUEST['scname'];
+      $photo=$_FILES['f1']['name'];
+
+      if($_FILES['f1']['name']){
+        $bucket->upload(
+            file_get_contents($_FILES['f1']['tmp_name']),
+            [
+            'name' =>$_FILES['f1']['name']
+            ]
+        );
+      
+      }
+
+      $new = $database
+      ->getReference('Project/subcategory')
+      ->push([
+          'subcat' => $scname,
+          'photo' =>$photo,
+      ])->getKey();
+      header("location:subshow.php");
+    }
+
     include_once("header.php");
 ?>
-
-<form class="form-horizontal" method="post" novalidate="novalidate">
-<br>
         <div class="page-content fade-in-up">
                 <div class="ibox">
                     <div class="ibox-head">
@@ -17,9 +50,16 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">SubCategory Name</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" type="text" name="scname" id="scname" placeholder="Enter name of SubCategory">
+                                    <input class="form-control" type="text" name="scname" required>
                                 </div>
                             </div>
+                            <!-- <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">SubCategory Name</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control" type="text" name="cname" required>
+                                </div>
+                            </div>
+                             -->
                             <script type="text/javascript">
                                 function previewImage(event) {
                                     var input = event.target;
@@ -42,11 +82,11 @@
                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label">File To Upload</label>
                                                 <div class="col-sm-10">
-                                                    <input class="form-control" type="file" required onchange="previewImage(event)" name="f1" id="f1">
+                                                    <input class="form-control" type="file" required onchange="previewImage(event)" name="f1" >
                                                     <img id="preview" src="Images\NoImage.jpg">
                                                 </div>
                             </div>                
-                            <div class="form-group row">
+                            <div class="form-group row">        
                                 <div class="col-sm-10 ml-sm-auto mt-5">
                                     <input class="btn btn-info" type="submit" name="btnsub" value="submit">
                                 </div>
@@ -54,7 +94,7 @@
                         </form>
                     </div>
                 </div>
-</form>
+        </div>
 
 
 <?php

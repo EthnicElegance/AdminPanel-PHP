@@ -1,68 +1,132 @@
 <?php
 
-    require_once("config.php");
-    if(isset($_REQUEST['id']))
-    {
-        $id=$_REQUEST['id'];
-        echo $id;
-        $url="Project/subcategory/$id";
-        $record=$database->getReference($url)->getSnapshot()->getValue();
-        print_r($record);
-    }
+require_once("config.php");
+require __DIR__.'/vendor/autoload.php';
 
-    if (isset($_POST['bt']))
-    {
-        $pname=$_POST['pname'];
-        $price=$_POST['price'];
-        $record=$database->getReference($url)->update(
-            [
-                'pname' => $pname,
-                'price' =>  $price
-         ]
-        );
+    use Kreait\Firebase\Factory;
+
+    $storage = (new Factory())
+    ->withServiceAccount('jsonkeys/ethincelegance-firebase-adminsdk-jfli6-ab8269909a.json')
+    ->withDefaultStorageBucket('ethincelegance.appspot.com')
+    ->createStorage();
+    
+    $bucket = $storage->getBucket();
+if (isset($_REQUEST['id']))
+{
+    $id=$_REQUEST['id'];
+    echo $id;
+    $url="Project/subcategory/$id";
+    $record=$database->getReference($url)->getSnapshot()->getValue();
+    print_r($record);
+    $file1=$record['photo'];
+    $path="https://firebasestorage.googleapis.com/v0/b/ethincelegance.appspot.com/o/$file1?alt=media";
+    
+}
+
+if (isset($_POST['edit']))
+{
    
-     
-        echo $record;
-        header("Location:subshow.php");
+    $scname=$_POST['scname'];
+    $photo=$_FILES['f1']['name'];
 
+    if ($_FILES['f1']['name'] != "") {
+        $datalist1 = $database->getReference($url)->getSnapshot()->getValue();
+        $existingFile = $bucket->object($datalist1['photo']);
+        if ($existingFile->exists()) {
+            $existingFile->delete();
+        } 
+        $database->getReference($url)->update(
+            [
+                'subcat' => $scname,
+                'photo' =>$photo,
+            ]
+        );
+        if($_FILES['f1']['name']){
+            $bucket->upload(
+                file_get_contents($_FILES['f1']['tmp_name']),
+                [
+                'name' =>$_FILES['f1']['name']
+                ]
+            );
+          
+          }      
     }
+    else{
+        $database->getReference($url)->update(
+            [
+                'subcat' => $scname,
+                'photo' => $file1
+            ]
+        );
+    }
+    
+         
+    // echo $record;
+    header("Location:subshow.php");
 
-    require_once("header.php");
+}
+include_once("header.php");
+
 ?>
 
-<form class="form-horizontal" method="post" novalidate="novalidate">
-<div class="page-content fade-in-up">
+        <div class="page-content fade-in-up">
                 <div class="ibox">
                     <div class="ibox-head">
-                        <div class="ibox-title">Edit Product</div>
+                        <div class="ibox-title">Insert SubCategory</div>
                         <div class="ibox-tools">
                             <a class="ibox-collapse"><i class="fa fa-minus"></i></a>
                         </div>
                     </div>
                     <div class="ibox-body">
-                        <form class="form-horizontal" id="form-sample-1" method="post" novalidate="novalidate">
+                        <form class="form-horizontal" enctype="multipart/form-data" id="form-sample-1" method="post" >
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Product Name</label>
+                                <label class="col-sm-2 col-form-label">SubCategory Name</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" type="text" name="pname" id="pname" value="<?php echo trim($record['pname']) ?>">
+                                    <input class="form-control" type="text"  name="scname" value="<?php echo trim($record['subcat']) ?>" required>
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Price</label>
+                            <!-- <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">SubCategory Name</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" type="text" name="price" id="price" value="<?php echo trim($record['price']) ?>">
+                                    <input class="form-control" type="text" name="scname" required>
                                 </div>
                             </div>
+                             -->
+                            <script type="text/javascript">
+                                function previewImage(event) {
+                                    var input = event.target;
+                                    var image = document.getElementById('preview');
+                                    if (input.files && input.files[0]) {
+                                        var reader = new FileReader();
+                                        reader.onload = function(e) {
+                                        image.src = e.target.result;
+                                        }
+                                        reader.readAsDataURL(input.files[0]);
+                                    }
+                                }
+                            </script>
+                            <style>
+                                #preview {
+                                    width: 200px;
+                                    height: 140px;
+                                }
+                            </style>
                             <div class="form-group row">
-                                <div class="col-sm-10 ml-sm-auto">
-                                    <input class="btn btn-info" type="submit" name="bt"  value="submit">
+                                                <label class="col-sm-2 col-form-label">File To Upload</label>
+                                                <div class="col-sm-10">
+                                                    <input class="form-control" type="file" onchange="previewImage(event)" name="f1" >
+                                                    <img id="preview" src="<?php echo $path ?>">
+                                                </div>
+                            </div>                
+                            <div class="form-group row">        
+                                <div class="col-sm-10 ml-sm-auto mt-5">
+                                    <input class="btn btn-info" type="submit" name="edit" value="Edit">
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
-            </div>
-</form>
+        </div>
 
 
 <?php
