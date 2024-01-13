@@ -37,7 +37,6 @@
         $size = $_REQUEST['size'];
         $qty = $_REQUEST['qty'];
         $gen = $_REQUEST['gen'];
-        $ptype = $_REQUEST['ptype'];
         $fb = $_REQUEST['fb'];
         $pcolour = $_REQUEST['pcolour'];
         $photo=$_FILES['f1']['name'];
@@ -62,7 +61,6 @@
                     'size' => $size,
                     'qty' => $qty,
                     'gender' => $gen,
-                    'product_type' => $ptype,
                     'fabric' => $fb,
                     'product_colour' => $pcolour,
                     'photo' =>$photo
@@ -181,21 +179,44 @@
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Availability</label>
+                            <label class="col-sm-2 col-form-label">Availability</label>
                                 <div class="col-sm-10">
                                     <select name="ava" class="form-control" >
-                                    <?php 
-                                                    if ($datalistProduct['availability'] == $row) {
+                                            <?php 
+                                                    if ($datalistProduct['availability'] == "Available") {
                                             ?>                                
-                                                        <option value='<?php echo $key;?>' selected><?php echo trim($datalistProduct['availability']) ?> </option>                            
+                                                        <option value='<?php echo $row['availability'];?>' selected><?php echo trim($datalistProduct['availability']) ?> </option>                            
                                             <?php
-                                            
                                                     }
-                                                    else{
+                                                    else {
+                                            ?>          
+                                                        <option>Available</option>
+                                            <?php    
+                                                    }
                                             ?>
-                                                            <option value='<?php echo $key;?>'><?php echo trim($datalistProduct['availability']) ?> </option>                            
                                             <?php
-                                                        }
+                                                    if ($datalistProduct['availability'] == "Unavailable") {
+                                            ?>                                
+                                                        <option value='<?php echo $row['availability'];?>' selected><?php echo trim($datalistProduct['availability']) ?> </option>                            
+                                            <?php
+                                                    }
+                                                    else {
+                                            ?>          
+                                                    <option>Unavailable</option>
+                                            <?php
+                                                    }
+                                            ?>
+                                            <?php
+                                                    if ($datalistProduct['availability'] == "Coming Soon") {
+                                            ?>                                
+                                                        <option value='<?php echo $row['availability'];?>' selected><?php echo trim($datalistProduct['availability']) ?> </option>                            
+                                            <?php
+                                                    }
+                                                    else {
+                                            ?>
+                                                        <option>Coming Soon</option>
+                                            <?php
+                                                    }
                                             ?>
                                     </select>    
                                 </div>
@@ -262,44 +283,58 @@
                                     <label for="Female" class="">Women</label>
                                 </div>
                             </div>
-
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Product Type</label>
-                                <div class="col-sm-10">
-                                    <select name="ptype" class="form-control">
-                                        <?php 
-                                                    if ($datalistProduct['product_type'] == $row) {
-                                            ?>                                
-                                                        <option value='<?php echo $key;?>' selected><?php echo trim($datalistProduct['product_type']) ?> </option>                            
-                                            <?php
-                                            
-                                                    }
-                                                    else{
-                                            ?>
-                                                            <option value='<?php echo $key;?>'><?php echo trim($datalistProduct['product_type']) ?> </option>                            
-                                            <?php
-                                                        }
-                                            ?>
-                                    </select>    
-                                </div>
-                            </div>
-
+                            
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label" >Fabric</label>
                                 <div class="col-sm-10" >
                                     <select name="fb" class="form-control">
-                                        <?php 
-                                                    if ($datalistProduct['fabric'] == $row) {
+                                            <?php 
+                                                    if ($datalistProduct['fabric'] == "Silk") {
                                             ?>                                
-                                                        <option value='<?php echo $key;?>' selected><?php echo trim($datalistProduct['fabric']) ?> </option>                            
+                                                        <option value='<?php echo $row['fabric'];?>' selected><?php echo trim($datalistProduct['fabric']) ?> </option>                            
                                             <?php
-                                            
                                                     }
-                                                    else{
+                                                    else {
+                                            ?>          
+                                                        <option>Silk</option>
+                                            <?php    
+                                                    }
                                             ?>
-                                                            <option value='<?php echo $key;?>'><?php echo trim($datalistProduct['fabric']) ?> </option>                            
                                             <?php
-                                                        }
+                                                    if ($datalistProduct['fabric'] == "Cotton") {
+                                            ?>                                
+                                                        <option value='<?php echo $row['fabric'];?>' selected><?php echo trim($datalistProduct['fabric']) ?> </option>                            
+                                            <?php
+                                                    }
+                                                    else {
+                                            ?>          
+                                                    <option>Cotton</option>
+                                            <?php
+                                                    }
+                                            ?>
+                                            <?php
+                                                    if ($datalistProduct['fabric'] == "Rayon") {
+                                            ?>                                
+                                                        <option value='<?php echo $row['fabric'];?>' selected><?php echo trim($datalistProduct['fabric']) ?> </option>                            
+                                            <?php
+                                                    }
+                                                    else {
+                                            ?>
+                                                        <option>Rayon</option>
+                                            <?php
+                                                    }
+                                            ?>
+                                            <?php
+                                                    if ($datalistProduct['fabric'] == "Georgette") {
+                                            ?>                                
+                                                        <option value='<?php echo $row['fabric'];?>' selected><?php echo trim($datalistProduct['fabric']) ?> </option>                            
+                                            <?php
+                                                    }
+                                                    else {
+                                            ?>
+                                                        <option>Georgette</option>
+                                            <?php
+                                                    }
                                             ?>
                                     </select>    
                                 </div>

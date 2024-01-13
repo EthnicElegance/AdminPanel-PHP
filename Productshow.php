@@ -56,7 +56,6 @@
                                     <th>SIZE</th>
                                     <th>QTY</th>
                                     <th>GENDER</th>
-                                    <th>PRODUCT TYPE</th>
                                     <th>FABRIC</th>
                                     <th>COLOR</th>
                                     <th>OPERATIONS</th>
@@ -75,7 +74,6 @@
                                     <th>SIZE</th>
                                     <th>QTY</th>
                                     <th>GENDER</th>
-                                    <th>PRODUCT TYPE</th>
                                     <th>FABRIC</th>
                                     <th>COLOR</th>
                                     <th>OPERATIONS</th>
@@ -104,7 +102,6 @@
                                         <td></td>
                                         <td><?=$row['qty'];?></td>
                                         <td><?=$row['gender'];?></td>
-                                        <td><?=$row['product_type'];?></td>
                                         <td><?=$row['fabric'];?></td>
                                         <td><?=$row['product_colour'];?></td>
                                         

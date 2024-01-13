@@ -25,7 +25,6 @@
       $size = $_REQUEST['size[]'];
       $qty = $_REQUEST['qty'];
       $gen = $_REQUEST['gen'];
-      $ptype = $_REQUEST['ptype'];
       $fb = $_REQUEST['fb'];
       $pcolour = $_REQUEST['pcolour'];
       $photo=$_FILES['f1']['name'];
@@ -53,7 +52,6 @@
           'size' => $size,
           'qty' => $qty,
           'gender' => $gen,
-          'product_type' => $ptype,
           'fabric' => $fb,
           'product_colour' => $pcolour,
           'photo' =>$photo,
@@ -206,7 +204,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row">
+                            <!-- <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Product Type</label>
                                 <div class="col-sm-10">
                                     <select name="ptype" class="form-control">
@@ -217,7 +215,7 @@
                                         <option>Gown</option>
                                     </select>    
                                 </div>
-                            </div>
+                            </div> -->
 
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label" >Fabric</label>

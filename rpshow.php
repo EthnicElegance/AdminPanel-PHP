@@ -1,27 +1,27 @@
 <?php
  require_once("config.php");
-//  use Kreait\Firebase\Factory;
-//  $storage = (new Factory())
-//  ->withServiceAccount('jsonkeys/ethincelegance-firebase-adminsdk-jfli6-ab8269909a.json')
-//  ->withDefaultStorageBucket('ethincelegance.appspot.com')
-//  ->createStorage();
+ use Kreait\Firebase\Factory;
+ $storage = (new Factory())
+ ->withServiceAccount('jsonkeys/ethincelegance-firebase-adminsdk-jfli6-ab8269909a.json')
+ ->withDefaultStorageBucket('ethincelegance.appspot.com')
+ ->createStorage();
 
-//  $bucket = $storage->getBucket();
+ $bucket = $storage->getBucket();
 
-//  if (isset($_REQUEST['id']))
-//  {
-//      $id=$_REQUEST['id'];
-//      $url="Project/category/$id";
-//      $datalist1 = $database->getReference($url)->getSnapshot()->getValue();
-//      $existingFile = $bucket->object($datalist1['photo']);
-//      if ($existingFile->exists()) {
-//          $existingFile->delete();
-//      } 
-//      $record=$database->getReference($url)->remove();
+ if (isset($_REQUEST['id']))
+ {
+     $id=$_REQUEST['id'];
+     $url="Project/RentProduct/$id";
+     $datalist1 = $database->getReference($url)->getSnapshot()->getValue();
+     $existingFile = $bucket->object($datalist1['photo']);
+     if ($existingFile->exists()) {
+         $existingFile->delete();
+     } 
+     $record=$database->getReference($url)->remove();
          
-//      header("location:catshow.php");
-//  }
-//  $datalist = $database->getReference('Project/category')->getSnapshot()->getValue();
+     header("location:rpshow.php");
+ }
+ $datalist = $database->getReference('Project/RentProduct')->getSnapshot()->getValue();
 
     include_once("header.php");
 ?>
@@ -82,12 +82,23 @@
                                 ?>
                                     <tr>
                                         <td><img class='img-circle' src='<?php echo $path;?>' width=60px height=60px /></td>
-                                        <td><?=$row['name'];?></td>
-                                        <td><?=$row['gender'];?></td>
+                                        <td><?=$row['rent_product_name'];?></td>
+                                        <?php 
+                                        $id=$row['subcatid'];
+                                        $datalistCat = $database->getReference("Project/subcategory/$id")->getSnapshot()->getValue();
+                                        ?>
+                                        <td><?= $datalistCat['subcat'] ?></td>
+                                        <td><?=$row['price'];?></td>
+                                        <td><?=$row['availability'];?></td>
+                                        <td></td>
+                                        <td><?=$row['qty'];?></td>
+                                        <td><?=$row['RentProduct_detail'];?></td>
+                                        <td><?=$row['fabric'];?></td>
+                                        <td><?=$row['RentProduct_colour'];?></td>
                                         
                                         <td>
                                         <a class="edit" href="rpedit.php?id=<?php echo $key?>" ><i class="fa fa-pencil" style="color:#243c64;"></i></a>
-                                        <a class="delete" href="rpshow.php?id=<?php echo $key?>" onclick="return confirm('Are you sure you want to delete <?=$row['name'];?>');"><i class="fa fa-trash" style="color:#243c64;"></i></a>  
+                                        <a class="delete" href="rpshow.php?id=<?php echo $key?>" onclick="return confirm('Are you sure you want to delete <?=$row['rent_product_name'];?>');"><i class="fa fa-trash" style="color:#243c64;"></i></a>  
                                         </td>
                                     </tr>
                                     <?php

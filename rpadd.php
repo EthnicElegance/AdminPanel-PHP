@@ -1,41 +1,59 @@
 <?php
-    //require_once("config.php");
+    require_once("config.php");
 
-    // require __DIR__.'/vendor/autoload.php';
+    require __DIR__.'/vendor/autoload.php';
 
-    // use Kreait\Firebase\Factory;
+    use Kreait\Firebase\Factory;
 
-    // $storage = (new Factory())
-    // ->withServiceAccount('jsonkeys/ethincelegance-firebase-adminsdk-jfli6-ab8269909a.json')
-    // ->withDefaultStorageBucket('ethincelegance.appspot.com')
-    // ->createStorage();
+    $storage = (new Factory())
+    ->withServiceAccount('jsonkeys/ethincelegance-firebase-adminsdk-jfli6-ab8269909a.json')
+    ->withDefaultStorageBucket('ethincelegance.appspot.com')
+    ->createStorage();
 
-    // $bucket = $storage->getBucket();
-    // if(isset($_REQUEST['btnsub']))
-    // {
-    //   $name=$_REQUEST['name'];
-    //   $gen = $_REQUEST['gen'];
-    //   $photo=$_FILES['f1']['name'];
+    $bucket = $storage->getBucket();
+    $datalistSubcat = $database->getReference('Project/subcategory')->getSnapshot()->getValue();
 
-    //   if($_FILES['f1']['name']){
-    //     $bucket->upload(
-    //         file_get_contents($_FILES['f1']['tmp_name']),
-    //         [
-    //         'name' =>$_FILES['f1']['name']
-    //         ]
-    //     );
+    if(isset($_REQUEST['btnsub']))
+    {
+      $rpname = $_REQUEST['rpname'];
+      $subcatid=$_REQUEST['subcatid'];
+      $price = $_REQUEST['price'];
+      $ava = $_REQUEST['ava'];
+      $size = $_REQUEST['size[]'];
+      $qty = $_REQUEST['qty'];
+      $rpdetail = $_REQUEST['rpdetail'];
+      $fb = $_REQUEST['fb'];
+      $rpcolour = $_REQUEST['rpcolour'];
+      //$gen = $_REQUEST['gen'];
+      $photo=$_FILES['f1']['name'];
+
+      if($_FILES['f1']['name']){
+        $bucket->upload(
+            file_get_contents($_FILES['f1']['tmp_name']),
+            [
+            'name' =>$_FILES['f1']['name']
+            ]
+        );
       
-    //   }
+      }
 
-    //   $new = $database
-    //   ->getReference('Project/category')
-    //   ->push([
-    //       'name' => $name,
-    //       'gender' => $gen,
-    //       'photo' =>$photo,
-    //   ])->getKey();
-    //   header("location:catshow.php");
-    // }
+      $new = $database
+      ->getReference('Project/RentProduct')
+      ->push([
+          'subcatid' => $subcatid,  
+          'rent_product_name' => $rpname,
+          'price' => $price,
+          'availability' => $ava,
+          'size' => $size,
+          'qty' => $qty,
+          'RentProduct_detail' => $rpdetail,
+          'fabric' => $fb,
+          'RentProduct_colour' => $rpcolour,
+          //'gender' => $gen,
+          'photo' =>$photo,
+      ])->getKey();
+      header("location:rpshow.php");
+    }
 
     include_once("header.php");
 ?>
@@ -58,14 +76,19 @@
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Sub Category</label>
+                                <label class="col-sm-2 col-form-label">SubCategory Name</label>
                                 <div class="col-sm-10">
-                                    <select name="sc" class="form-control">
-                                        <option>Select</option>
-                                        <option>Lehenga</option>
-                                        <option>Kurti</option>
-                                        <option>Saree</option>
-                                    </select>
+                                <select name="subcatid" class="form-control" >
+                                            <option>select option </option>
+                                            <?php 
+                                                foreach($datalistSubcat as $key=>$row)
+                                                {
+                                            ?>                                
+                                                <option value='<?php echo $key;?>'><?php echo $row['subcat'];?> </option>                            
+                                            <?php
+                                            }
+                                            ?>
+                                        </select>
                                 </div>
                             </div>
 
@@ -79,7 +102,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Availability</label>
                                 <div class="col-sm-10">
-                                    <select name="ava" class="form-control">
+                                    <select name="ava" class="form-control" >
                                         <option>Select</option>
                                         <option>Available</option>
                                         <option>Unavailable</option>
@@ -142,7 +165,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Fabric</label>
                                 <div class="col-sm-10">
-                                    <select name="fabric" class="form-control">
+                                    <select name="fb" class="form-control">
                                         <option>Select Fabric</option>
                                         <option>Silk</option>
                                         <option>Cotton</option>
@@ -155,7 +178,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">RentProduct Colour</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" type="text" name="pcolour" id="pcolour" placeholder="Enter Product Colour" required>
+                                    <input class="form-control" type="text" name="rpcolour" id="rpcolour" placeholder="Enter Product Colour" required>
                                 </div>
                             </div>
 
