@@ -11,22 +11,26 @@ require __DIR__.'/vendor/autoload.php';
     ->createStorage();
     
     $bucket = $storage->getBucket();
+    $datalistCat = $database->getReference('Project/category')->getSnapshot()->getValue();
+
 if (isset($_REQUEST['id']))
 {
     $id=$_REQUEST['id'];
     echo $id;
     $url="Project/subcategory/$id";
-    $record=$database->getReference($url)->getSnapshot()->getValue();
-    print_r($record);
-    $file1=$record['photo'];
+    $datalistSubcat=$database->getReference($url)->getSnapshot()->getValue();
+    print_r($datalistSubcat);
+    $file1=$datalistSubcat['photo'];
     $path="https://firebasestorage.googleapis.com/v0/b/ethincelegance.appspot.com/o/$file1?alt=media";
     
 }
+
 
 if (isset($_POST['edit']))
 {
    
     $scname=$_POST['scname'];
+    $catid=$_REQUEST['catid'];
     $photo=$_FILES['f1']['name'];
 
     if ($_FILES['f1']['name'] != "") {
@@ -37,6 +41,7 @@ if (isset($_POST['edit']))
         } 
         $database->getReference($url)->update(
             [
+                'catid' => $catid,
                 'subcat' => $scname,
                 'photo' =>$photo,
             ]
@@ -54,6 +59,7 @@ if (isset($_POST['edit']))
     else{
         $database->getReference($url)->update(
             [
+                'catid' => $catid,
                 'subcat' => $scname,
                 'photo' => $file1
             ]
@@ -61,7 +67,7 @@ if (isset($_POST['edit']))
     }
     
          
-    // echo $record;
+    // echo $datalistSubcat;
     header("Location:subshow.php");
 
 }
@@ -72,7 +78,7 @@ include_once("header.php");
         <div class="page-content fade-in-up">
                 <div class="ibox">
                     <div class="ibox-head">
-                        <div class="ibox-title">Insert SubCategory</div>
+                        <div class="ibox-title">Edit SubCategory</div>
                         <div class="ibox-tools">
                             <a class="ibox-collapse"><i class="fa fa-minus"></i></a>
                         </div>
@@ -82,16 +88,36 @@ include_once("header.php");
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">SubCategory Name</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" type="text"  name="scname" value="<?php echo trim($record['subcat']) ?>" required>
+                                    <input class="form-control" type="text"  name="scname" value="<?php echo trim($datalistSubcat['subcat']) ?>" required>
                                 </div>
                             </div>
-                            <!-- <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">SubCategory Name</label>
+                            <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Category Name</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" type="text" name="scname" required>
+                                        <select name="catid" class="form-control">
+                                            <option>select option </option>
+                                            <?php 
+                                                foreach($datalistCat as $key=>$row)
+                                                {
+                                                    if ($datalistSubcat['catid'] == $key) {
+
+                                            ?>   
+                                                
+                                                        <option value='<?php echo $key;?>' selected><?php echo $row['name'];?> </option>                            
+                                            <?php 
+                                                
+                                                    }
+                                                    else{
+                                            ?>   
+                                                        <option value='<?php echo $key;?>'><?php echo $row['name'];?> </option>                            
+                                            <?php
+                                                    }
+                                            }
+                                            ?>
+                                        </select>
                                 </div>
                             </div>
-                             -->
+                            
                             <script type="text/javascript">
                                 function previewImage(event) {
                                     var input = event.target;

@@ -206,7 +206,7 @@
                     </li>
                     <!-- <li class="heading">FEATURES</li> -->
                     <li>
-                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-bars"></i>
+                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-tasks"></i>
                             <span class="nav-label">Category</span><i class="fa fa-angle-left arrow"></i></a>
                         <ul class="nav-2-level collapse">
                             <li>
@@ -238,6 +238,32 @@
                             </li>
                             <li>
                                 <a href="Productshow.php">View</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-suitcase"></i>
+                            <span class="nav-label">Rental Product</span><i class="fa fa-angle-left arrow"></i></a>
+                        <ul class="nav-2-level collapse">
+                            <li>
+                                <a href="rpadd.php">Add</a>
+                            </li>
+                            <li>
+                                <a href="rpshow.php">View</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-cube"></i>
+                            <span class="nav-label">Offers</span><i class="fa fa-angle-left arrow"></i></a>
+                        <ul class="nav-2-level collapse">
+                            <li>
+                                <a href="offeradd.php">Add</a>
+                            </li>
+                            <li>
+                                <a href="offershow.php">View</a>
                             </li>
                         </ul>
                     </li>

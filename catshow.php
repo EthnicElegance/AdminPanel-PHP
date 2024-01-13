@@ -45,17 +45,17 @@
                         <table class="table table-striped table-bordered table-hover" id="example-table" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
-                                <th>CATAGORY NAME</th>
+                                    <th>IMAGES</th>
+                                    <th>CATAGORY NAME</th>
                                     <th>GENDER</th>
-                                    <th>PHOTOS</th>
                                     <th>OPERATIONS</th>
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
-                                <th>CATAGORY NAME</th>
+                                    <th>IMAGES</th>
+                                    <th>CATAGORY NAME</th>
                                     <th>GENDER</th>
-                                    <th>PHOTOS</th>
                                     <th>OPERATIONS</th>
                                 </tr>
                             </tfoot>
@@ -67,9 +67,9 @@
                                         $path="https://firebasestorage.googleapis.com/v0/b/ethincelegance.appspot.com/o/$file1?alt=media";
                                 ?>
                                     <tr>
+                                        <td><img class='img-circle' src='<?php echo $path;?>' width=60px height=60px /></td>
                                         <td><?=$row['name'];?></td>
                                         <td><?=$row['gender'];?></td>
-                                        <td><img src='<?php echo $path;?>' width=100px height=100px /></td>
                                         <td>
                                         <a class="edit" href="edit.php?id=<?php echo $key?>" ><i class="fa fa-pencil" style="color:#243c64;"></i></a>
                                         <a class="delete" href="catshow.php?id=<?php echo $key?>" onclick="return confirm('Are you sure you want to delete <?=$row['name'];?>');"><i class="fa fa-trash" style="color:#243c64;"></i></a>  

@@ -128,7 +128,7 @@ require_once("header.php");
                             </div>                
                             <div class="form-group row">
                                 <div class="col-sm-10 ml-sm-auto mt-5">
-                                    <input class="btn btn-info" type="submit" name="edit" value="submit">
+                                    <input class="btn btn-info" type="submit" name="edit" value="Edit">
                                 </div>
                             </div>
                         </form>

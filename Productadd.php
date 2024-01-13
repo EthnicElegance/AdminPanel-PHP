@@ -1,41 +1,65 @@
 <?php
     require_once("config.php");
 
-    // require __DIR__.'/vendor/autoload.php';
+    require __DIR__.'/vendor/autoload.php';
 
-    // use Kreait\Firebase\Factory;
+    use Kreait\Firebase\Factory;
 
-    // $storage = (new Factory())
-    // ->withServiceAccount('jsonkeys/ethincelegance-firebase-adminsdk-jfli6-ab8269909a.json')
-    // ->withDefaultStorageBucket('ethincelegance.appspot.com')
-    // ->createStorage();
+    $storage = (new Factory())
+    ->withServiceAccount('jsonkeys/ethincelegance-firebase-adminsdk-jfli6-ab8269909a.json')
+    ->withDefaultStorageBucket('ethincelegance.appspot.com')
+    ->createStorage();
 
-    // $bucket = $storage->getBucket();
-    // if(isset($_REQUEST['btnsub']))
-    // {
-    //   $name=$_REQUEST['name'];
-    //   $gen = $_REQUEST['gen'];
-    //   $photo=$_FILES['f1']['name'];
+    $bucket = $storage->getBucket();
+    $datalistSubcat = $database->getReference('Project/subcategory')->getSnapshot()->getValue();
 
-    //   if($_FILES['f1']['name']){
-    //     $bucket->upload(
-    //         file_get_contents($_FILES['f1']['tmp_name']),
-    //         [
-    //         'name' =>$_FILES['f1']['name']
-    //         ]
-    //     );
+    if(isset($_REQUEST['btnsub']))
+    {
+      $pname = $_REQUEST['pname'];
+      $subcatid=$_REQUEST['subcatid'];
+      $detail = $_REQUEST['detail'];
+      $ut = $_REQUEST['ut[]'];
+      $rprice = $_REQUEST['rprice'];
+      $cprice = $_REQUEST['cprice'];
+      $ava = $_REQUEST['ava'];
+      $size = $_REQUEST['size[]'];
+      $qty = $_REQUEST['qty'];
+      $gen = $_REQUEST['gen'];
+      $ptype = $_REQUEST['ptype'];
+      $fb = $_REQUEST['fb'];
+      $pcolour = $_REQUEST['pcolour'];
+      $photo=$_FILES['f1']['name'];
+
+      if($_FILES['f1']['name']){
+        $bucket->upload(
+            file_get_contents($_FILES['f1']['tmp_name']),
+            [
+            'name' =>$_FILES['f1']['name']
+            ]
+        );
       
-    //   }
+      }
 
-    //   $new = $database
-    //   ->getReference('Project/category')
-    //   ->push([
-    //       'name' => $name,
-    //       'gender' => $gen,
-    //       'photo' =>$photo,
-    //   ])->getKey();
-    //   header("location:catshow.php");
-    // }
+      $new = $database
+      ->getReference('Project/product')
+      ->push([
+          'subcatid' => $subcatid,  
+          'product_name' => $pname,
+          'detail' => $detail,
+          'user_type' => $ut,
+          'retailer_price' => $rprice,
+          'customer_price' => $cprice,
+          'availability' => $ava,
+          'size' => $size,
+          'qty' => $qty,
+          'gender' => $gen,
+          'product_type' => $ptype,
+          'fabric' => $fb,
+          'product_colour' => $pcolour,
+          'photo' =>$photo,
+      ])->getKey();
+      header("location:Productshow.php");
+    }
 
     include_once("header.php");
 ?>
@@ -55,24 +79,41 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Product Name</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" type="text" name="pname" id="pname" placeholder="Enter Product Name">
+                                    <input class="form-control" type="text" name="pname" id="pname" placeholder="Enter Product Name" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label">SubCategory Name</label>
+                                <div class="col-sm-10">
+                                        <select name="subcatid" class="form-control" >
+                                            <option>select option </option>
+                                            <?php 
+                                                foreach($datalistSubcat as $key=>$row)
+                                                {
+                                            ?>                                
+                                                <option value='<?php echo $key;?>'><?php echo $row['subcat'];?> </option>                            
+                                            <?php
+                                            }
+                                            ?>
+                                        </select>
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Product Detail</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" type="text" name="detail" id="detail" placeholder="Enter Product Details">
+                                    <input class="form-control" type="text" name="detail" id="detail" placeholder="Enter Product Details" required>
                                 </div>
                             </div>
-                            <div class="form-group row">
+                            <div class="form-group row" >
                                 <label class="col-sm-2">User Type</label>&nbsp;&nbsp;&nbsp;&nbsp;
                                 <div class="form-check">
-                                    <input class="form-control" type="checkbox" name="retailer" id="retailer" name="ut[]">
+                                    <input class="form-control" type="checkbox" id="retailer" name="ut[]" value="Retailer">
                                     <label for="Retailer" class="">Retailer</label>
                                 </div>&nbsp;&nbsp;&nbsp;
                                 <div class="form-check">
-                                    <input class="form-control" type="checkbox" name="cus" id="cus" name="ut[]">
+                                    <input class="form-control" type="checkbox" id="cus" name="ut[]" value="Customer">
                                     <label for="Customer" class="">Customer</label>
                                 </div>
                             </div>
@@ -80,21 +121,21 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Retailer Price</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" type="text" name="rprice" id="rprice" placeholder="Enter Price for Retailer">
+                                    <input class="form-control" type="text" name="rprice" id="rprice" placeholder="Enter Price for Retailer" required>
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Customer Price</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" type="text" name="cprice" id="cprice" placeholder="Enter Price for Customer">
+                                    <input class="form-control" type="text" name="cprice" id="cprice" placeholder="Enter Price for Customer" required>
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Availibility</label>
+                                <label class="col-sm-2 col-form-label">Availability</label>
                                 <div class="col-sm-10">
-                                    <select name="ava">
+                                    <select name="ava" class="form-control" >
                                         <option>Select</option>
                                         <option>Available</option>
                                         <option>Unavailable</option>
@@ -140,7 +181,7 @@
                                     <label for="Free Size" class="">Free Size</label>
                                 </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <div class="form-check">
-                                    <input class="form-control" type="text" name="size[]" id="size" placeholder="Enter Size">
+                                    <input class="form-control" type="text" name="size[]" id="size" placeholder="Enter Size" >
                                 </div>&nbsp;&nbsp;&nbsp;
                                 
                                 <!-- <a class="delete" href="Productadd.php" onclick="return confirm('are you sure<?= $size ?>');"><i class="fa fa-trash" style="color:#243c64;"></i></a>   -->
@@ -149,7 +190,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">QTY</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" type="text" name="qty" id="qty" placeholder="Enter QTY">
+                                    <input class="form-control" type="text" name="qty" id="qty" placeholder="Enter QTY" required>
                                 </div>
                             </div>
 
@@ -168,7 +209,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Product Type</label>
                                 <div class="col-sm-10">
-                                    <select name="ptype">
+                                    <select name="ptype" class="form-control">
                                         <option>Select Type</option>
                                         <option>Kurti</option>
                                         <option>Lehenga</option>
@@ -179,9 +220,9 @@
                             </div>
 
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Fabric</label>
-                                <div class="col-sm-10">
-                                    <select name="ava">
+                                <label class="col-sm-2 col-form-label" >Fabric</label>
+                                <div class="col-sm-10" >
+                                    <select name="fb" class="form-control">
                                         <option>Select Fabric</option>
                                         <option>Silk</option>
                                         <option>Cotton</option>
@@ -194,7 +235,7 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Product Colour</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" type="text" name="pcolour" id="pcolour" placeholder="Enter Product Colour">
+                                    <input class="form-control" type="text" name="pcolour" id="pcolour" placeholder="Enter Product Colour" required>
                                 </div>
                             </div>
 
@@ -220,7 +261,7 @@
                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label">File To Upload</label>
                                                 <div class="col-sm-10">
-                                                    <input class="form-control" type="file" onchange="previewImage(event)" name="f1" id="f1">
+                                                    <input class="form-control" type="file" onchange="previewImage(event)" name="f1" id="f1" required>
                                                     <img id="preview" src="Images\NoImage.jpg">
                                                 </div>
                             </div>                
