@@ -86,7 +86,7 @@ require_once("header.php");
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Category Name</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" type="text" name="name" id="name" placeholder="Enter Type" value="<?php echo trim($record['name']) ?>">
+                                    <input class="form-control" type="text" name="name" value="<?php echo trim($record['name']) ?>">
                                 </div>
                             </div>
                             <div class="form-group row">

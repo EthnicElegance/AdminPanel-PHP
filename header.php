@@ -176,7 +176,7 @@
                             <a class="dropdown-item" href="profile.html"><i class="fa fa-cog"></i>Settings</a>
                             <a class="dropdown-item" href="javascript:;"><i class="fa fa-support"></i>Support</a>
                             <li class="dropdown-divider"></li>
-                            <a class="dropdown-item" href="login.html"><i class="fa fa-power-off"></i>Logout</a>
+                            <a class="dropdown-item" href="login.php"><i class="fa fa-power-off"></i>Logout</a>
                         </ul>
                     </li>
                 </ul>
@@ -255,7 +255,7 @@
                         </ul>
                     </li>
 
-                    <li>
+                    <!-- <li>
                         <a href="javascript:;"><i class="sidebar-item-icon fa fa-cube"></i>
                             <span class="nav-label">Offers</span><i class="fa fa-angle-left arrow"></i></a>
                         <ul class="nav-2-level collapse">
@@ -266,19 +266,19 @@
                                 <a href="offershow.php">View</a>
                             </li>
                         </ul>
-                    </li>
-                    <!-- <li>
-                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-table"></i>
-                            <span class="nav-label">Tables</span><i class="fa fa-angle-left arrow"></i></a>
+                    </li> -->
+                    <li>
+                        <a href="javascript:;"><i class="sidebar-item-icon fa fa-tags"></i>
+                            <span class="nav-label">Coupons</span><i class="fa fa-angle-left arrow"></i></a>
                         <ul class="nav-2-level collapse">
                             <li>
-                                <a href="table_basic.html">Basic Tables</a>
+                                <a href="couponadd.php">Add</a>
                             </li>
                             <li>
-                                <a href="datatables.html">Datatables</a>
+                                <a href="couponshow.php">View</a>
                             </li>
                         </ul>
-                    </li> -->
+                    </li>
                     <!-- <li>
                         <a href="javascript:;"><i class="sidebar-item-icon fa fa-bar-chart"></i>
                             <span class="nav-label">Charts</span><i class="fa fa-angle-left arrow"></i></a>

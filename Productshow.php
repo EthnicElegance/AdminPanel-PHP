@@ -91,15 +91,21 @@
                                         <td><?=$row['product_name'];?></td>
                                         <?php 
                                         $id=$row['subcatid'];
+                                        $id1=$row['size'];
                                         $datalistCat = $database->getReference("Project/subcategory/$id")->getSnapshot()->getValue();
+                                        $datalistsize = $database->getReference("Project/size/$id1")->getSnapshot()->getValue();
+                                        $datalistsizekey = $database->getReference("Project/size/$id1")->getKey();
+
                                         ?>
                                         <td><?= $datalistCat['subcat'] ?></td>
                                         <td><?=$row['detail'];?></td>
-                                        <td></td>
+                                        <td><?=$row['user_type'];?></td>
                                         <td><?=$row['retailer_price'];?></td>
                                         <td><?=$row['customer_price'];?></td>
                                         <td><?=$row['availability'];?></td>
-                                        <td></td>
+                                        <td><?php foreach ($datalistsize as $key1 => $value1) {
+                                                echo "$key1: $value1<br>";
+                                        }?></td>
                                         <td><?=$row['qty'];?></td>
                                         <td><?=$row['gender'];?></td>
                                         <td><?=$row['fabric'];?></td>

@@ -82,7 +82,7 @@
                                 ?>
                                     <tr>
                                         <td><img class='img-circle' src='<?php echo $path;?>' width=60px height=60px /></td>
-                                        <td><?=$row['rent_product_name'];?></td>
+                                        <td><?=$row['RentProduct_name'];?></td>
                                         <?php 
                                         $id=$row['subcatid'];
                                         $datalistCat = $database->getReference("Project/subcategory/$id")->getSnapshot()->getValue();
@@ -90,15 +90,26 @@
                                         <td><?= $datalistCat['subcat'] ?></td>
                                         <td><?=$row['price'];?></td>
                                         <td><?=$row['availability'];?></td>
-                                        <td></td>
+                                        <?php 
+                                        $id=$row['subcatid'];
+                                        $id1=$row['size'];
+                                        $datalistCat = $database->getReference("Project/subcategory/$id")->getSnapshot()->getValue();
+                                        $datalistsize = $database->getReference("Project/size/$id1")->getSnapshot()->getValue();
+                                        $datalistsizekey = $database->getReference("Project/size/$id1")->getKey();
+
+                                        ?>
+                                        <td>
+                                        <?php foreach ($datalistsize as $key1 => $value1) {
+                                                echo "$key1: $value1<br>";
+                                        }?>
+                                        </td>
                                         <td><?=$row['qty'];?></td>
                                         <td><?=$row['RentProduct_detail'];?></td>
                                         <td><?=$row['fabric'];?></td>
-                                        <td><?=$row['RentProduct_colour'];?></td>
-                                        
+                                        <td><?=$row['RentProduct_colour'];?></td>  
                                         <td>
                                         <a class="edit" href="rpedit.php?id=<?php echo $key?>" ><i class="fa fa-pencil" style="color:#243c64;"></i></a>
-                                        <a class="delete" href="rpshow.php?id=<?php echo $key?>" onclick="return confirm('Are you sure you want to delete <?=$row['rent_product_name'];?>');"><i class="fa fa-trash" style="color:#243c64;"></i></a>  
+                                        <a class="delete" href="rpshow.php?id=<?php echo $key?>" onclick="return confirm('Are you sure you want to delete <?=$row['RentProduct_name'];?>');"><i class="fa fa-trash" style="color:#243c64;"></i></a>  
                                         </td>
                                     </tr>
                                     <?php
