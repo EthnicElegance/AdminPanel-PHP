@@ -12,12 +12,17 @@
  {
      $id=$_REQUEST['id'];
      $url="Project/RentProduct/$id";
+     $datalistrp=$database->getReference($url)->getSnapshot()->getValue();
+     $sid=$datalistrp['size'];
+     $url1="Project/size/$sid";        
+
      $datalist1 = $database->getReference($url)->getSnapshot()->getValue();
      $existingFile = $bucket->object($datalist1['photo']);
      if ($existingFile->exists()) {
          $existingFile->delete();
      } 
-     $record=$database->getReference($url)->remove();
+    $record=$database->getReference($url)->remove();
+    $record1=$database->getReference($url1)->remove();
          
      header("location:rpshow.php");
  }
@@ -88,7 +93,7 @@
                                         $datalistCat = $database->getReference("Project/subcategory/$id")->getSnapshot()->getValue();
                                         ?>
                                         <td><?= $datalistCat['subcat'] ?></td>
-                                        <td><?=$row['price'];?></td>
+                                        <td><i class="fa fa-inr"></i><?=$row['price'];?></td>
                                         <td><?=$row['availability'];?></td>
                                         <?php 
                                         $id=$row['subcatid'];
@@ -100,7 +105,9 @@
                                         ?>
                                         <td>
                                         <?php foreach ($datalistsize as $key1 => $value1) {
-                                                echo "$key1: $value1<br>";
+                                            if ($value1 > 0) {
+                                               echo "$key1: $value1<br>";
+                                            }
                                         }?>
                                         </td>
                                         <td><?=$row['qty'];?></td>

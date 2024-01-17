@@ -71,7 +71,7 @@
 
     include_once("header.php");
 ?>
-<script>
+<!-- <script>
         function toggleTextbox() {
             // Get the checkbox and textbox elements
             var checkbox1 = document.getElementById("Sc");
@@ -101,7 +101,7 @@
             textbox7.disabled = !checkbox7.checked;
 
         }
-</script>
+</script> -->
 
 <br>
         <div class="page-content fade-in-up">
@@ -141,7 +141,10 @@
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Price Per Day</label>
                                 <div class="col-sm-10">
+                                <div class="input-group-icon left">
+                                    <div class="input-icon"><i class="fa fa-inr"></i></div>
                                     <input class="form-control" type="number" name="price" id="price" placeholder="Enter Price per day" required>
+                                </div>
                                 </div>
                             </div>
 
@@ -161,44 +164,42 @@
                                 <label class="col-sm-2 col-form-label">Size</label>&nbsp;&nbsp;&nbsp;&nbsp;                    
                                 <div class="form-check">
                                     <label for="S" class="" align="center">    S
-                                    <input class="form-control-col-sm-2" type="checkbox" id="Sc" name="size[]" onclick="toggleTextbox()" value="S">
-                                    <input class="form-control-col-sm-2" type="text" name="qty[]" value="0" id="St" disabled placeholder="S Qty">
+                                    <input class="form-control-col-sm-2" type="text" name="qty[]" value="0" id="St" placeholder="S Qty">
                                 </label>
                                 </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <div class="form-check">
                                     <label for="M" class="" align="center">    M
-                                    <input class="form-control-col-sm-2" type="checkbox" id="Mc" name="size[]" onclick="toggleTextbox()" value="M">
-                                    <input class="form-control-col-sm-2" type="text" name="qty[]" value="0" id="Mt" disabled placeholder="M Qty">
+                                    <input class="form-control-col-sm-2" type="text" name="qty[]" value="0" id="Mt" placeholder="M Qty">
                                     </label>
                                 </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <div class="form-check">
                                     <label for="L" class="" align="center">    L
-                                    <input class="form-control-col-sm-2" type="checkbox" id="Lc" name="size[]" onclick="toggleTextbox()" value="L">
-                                    <input class="form-control-col-sm-2" type="text" name="qty[]" value="0" id="Lt" disabled placeholder="L Qty">
+                                    <input class="form-control-col-sm-2" type="text" name="qty[]" value="0" id="Lt" placeholder="L Qty">
                                     </label>
                                 </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <div class="form-check">
                                     <label for="XL" class="" align="center">    XL
-                                    <input class="form-control-col-sm-2" type="checkbox" id="XLc" name="size[]" onclick="toggleTextbox()" value="XL">
-                                    <input class="form-control-col-sm-2" type="text" name="qty[]" value="0" id="XLt" disabled placeholder="XL Qty">
+                                    <input class="form-control-col-sm-2" type="text" name="qty[]" value="0" id="XLt" placeholder="XL Qty">
                                     </label>
                                 </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <div class="form-check">
                                     <label for="XXL" class="" align="center">    XXL
-                                    <input class="form-control-col-sm-2" type="checkbox" id="XXLc" name="size[]" onclick="toggleTextbox()" value="XXL">
-                                    <input class="form-control-col-sm-2" type="text" name="qty[]" value="0" id="XXLt" disabled placeholder="XXL Qty">
+                                    <input class="form-control-col-sm-2" type="text" name="qty[]" value="0" id="XXLt" placeholder="XXL Qty">
                                     </label>
                                 </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <div class="form-check">
                                     <label for="XXXL" class="" align="center">    XXXL
-                                    <input class="form-control-col-sm-2" type="checkbox" id="XXXLc" name="size[]" onclick="toggleTextbox()" value="XXXL">
-                                    <input class="form-control-col-sm-2" type="text" name="qty[]" value="0" id="XXXLt" disabled placeholder="XXXL Qty">
+                                    <input class="form-control-col-sm-2" type="text" name="qty[]" value="0" id="XXXLt" placeholder="XXXL Qty">
                                     </label>
-                                </div>&nbsp;&nbsp;&nbsp;
+                                </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 <div class="form-check">
                                     <label for="Free Size" class="" align="center">Free Size
-                                    <input class="form-control-col-sm-2" type="checkbox" id="FreeSizec" name="size[]" onclick="toggleTextbox()" value="FreeSize">
-                                    <input class="form-control-col-sm-2" type="text" name="qty[]" value="0" id="FreeSizet" disabled placeholder="FreeSize Qty">
+                                    <input class="form-control-col-sm-2" type="text" name="qty[]" value="0" id="FreeSizet" placeholder="FreeSize Qty">
+                                    </label>                                
+                                </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <div class="form-check">
+                                    <label for="Unstitched" class="" align="center">Unstitched
+                                    <input class="form-control-col-sm-2" type="text" name="qty[]" value="0" id="Unstitchedt" placeholder="Unstitched Qty">
                                     </label>                                
                                 </div>
                             </div>
@@ -216,9 +217,14 @@
                                     <select name="fb" class="form-control">
                                         <option>Select Fabric</option>
                                         <option>Silk</option>
+                                        <option>Silk Crape</option>
+                                        <option>Banarasi Silk</option>
                                         <option>Cotton</option>
                                         <option>Rayon</option>
                                         <option>Georgette</option>
+                                        <option>Pure Net</option>
+                                        <option>Chiffon</option>
+                                        <option>Viscose</option>
                                     </select>    
                                 </div>
                             </div>

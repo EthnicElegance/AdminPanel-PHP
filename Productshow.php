@@ -12,12 +12,17 @@
   {
       $id=$_REQUEST['id'];
       $url="Project/product/$id";
+      $datalistProduct=$database->getReference($url)->getSnapshot()->getValue();
+      $sid=$datalistProduct['size'];
+      $url1="Project/size/$sid";
+
       $datalist1 = $database->getReference($url)->getSnapshot()->getValue();
       $existingFile = $bucket->object($datalist1['photo']);
       if ($existingFile->exists()) {
           $existingFile->delete();
       } 
       $record=$database->getReference($url)->remove();
+      $record1=$database->getReference($url1)->remove();
          
      header("location:Productshow.php");
   }
@@ -58,7 +63,7 @@
                                     <th>GENDER</th>
                                     <th>FABRIC</th>
                                     <th>COLOR</th>
-                                    <th>OPERATIONS</th>
+                                    <th>OP</th>
                                 </tr>
                             </thead>
                             <tfoot>
@@ -76,7 +81,7 @@
                                     <th>GENDER</th>
                                     <th>FABRIC</th>
                                     <th>COLOR</th>
-                                    <th>OPERATIONS</th>
+                                    <th>OP</th>
                                 </tr>
                             </tfoot>
                             <tbody>
@@ -100,11 +105,13 @@
                                         <td><?= $datalistCat['subcat'] ?></td>
                                         <td><?=$row['detail'];?></td>
                                         <td><?=$row['user_type'];?></td>
-                                        <td><?=$row['retailer_price'];?></td>
-                                        <td><?=$row['customer_price'];?></td>
+                                        <td><i class="fa fa-inr"></i><?=$row['retailer_price'];?></td>
+                                        <td><i class="fa fa-inr"></i><?=$row['customer_price'];?></td>
                                         <td><?=$row['availability'];?></td>
                                         <td><?php foreach ($datalistsize as $key1 => $value1) {
-                                                echo "$key1: $value1<br>";
+                                                if ($value1 > 0) {
+                                                    echo "$key1: $value1<br>";
+                                                }
                                         }?></td>
                                         <td><?=$row['qty'];?></td>
                                         <td><?=$row['gender'];?></td>

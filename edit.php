@@ -19,7 +19,12 @@ if (isset($_REQUEST['id']))
     $record=$database->getReference($url)->getSnapshot()->getValue();
     print_r($record);
     $file1=$record['photo'];
-    $path="https://firebasestorage.googleapis.com/v0/b/ethincelegance.appspot.com/o/$file1?alt=media";
+    $path="CategoryImage/$file1";
+    $object = $bucket->object($path);
+    $expirationDate = new \DateTimeImmutable('2030-01-01T00:00:00Z');
+    $downloadUrl = $object->signedUrl($expirationDate);
+
+    // $path="https://firebasestorage.googleapis.com/v0/b/ethincelegance.appspot.com/o/$file1?alt=media";
     
 }
 
@@ -47,7 +52,7 @@ if (isset($_POST['edit']))
             $bucket->upload(
                 file_get_contents($_FILES['f1']['tmp_name']),
                 [
-                'name' =>$_FILES['f1']['name']
+                'name' =>"CategoryImage/".$_FILES['f1']['name']
                 ]
             );
           

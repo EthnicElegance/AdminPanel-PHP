@@ -21,7 +21,7 @@
         $bucket->upload(
             file_get_contents($_FILES['f1']['tmp_name']),
             [
-            'name' =>$_FILES['f1']['name']
+            'name' =>"CategoryImage/".$_FILES['f1']['name']
             ]
         );
       
